@@ -8,8 +8,8 @@ public static class ModelBuilderExtentions
 {
     public static void Seed(this ModelBuilder builder)
     {
-        var books = GenerateBooks(25);
-        var reviews = GenerateReviews(500, books);
+        var books = GenerateBooks(50);
+        var reviews = GenerateReviews(250, books);
         var ratings = GenerateRatings(100, books);
         builder.Entity<Book>().HasData(books);
         builder.Entity<Review>().HasData(reviews);
@@ -44,11 +44,11 @@ public static class ModelBuilderExtentions
         var index = 1;
         var faker = new Faker<Book>()
             .RuleFor(x => x.Id, f => ++index)
-            .RuleFor(x => x.Content, f => f.Lorem.Sentence(10))
-            .RuleFor(x => x.Genre, f => f.Lorem.Sentence(5))
-            .RuleFor(x => x.Title, f => f.Lorem.Sentence(5))
-            .RuleFor(x => x.Cover, f => f.Lorem.Sentence(15))
-            .RuleFor(x => x.Content, f => f.Image.Image());
+            .RuleFor(x => x.Genre, f => f.Lorem.Word())
+            .RuleFor(x => x.Title, f => f.Lorem.Word())
+            .RuleFor(x => x.Cover, f => f.Image.PicsumUrl())
+            .RuleFor(x => x.Author, f=> f.Name.FirstName())
+            .RuleFor(x => x.Content, f => f.Lorem.Sentences(20));
 
         return faker.Generate(v);
     }

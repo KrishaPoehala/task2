@@ -6,6 +6,11 @@ using task2.BLL.Services.Abstration;
 using task2.BLL.Services.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+{
+    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
+
 builder.Logging.AddJsonConsole();
 // Add services to the container.
 builder.Services.AddControllers().AddJsonOptions(option =>
@@ -28,6 +33,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("corsapp");
+
 app.UseMiddleware<task2.WebApi.Middlewares.ErrorHandlerMiddleware>();
 app.UseAuthorization();
 

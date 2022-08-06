@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using task2.BLL.Services.Abstration;
-
+using task2.Common.Dtos;
 namespace task2.WebApi.Controllers
 {
     [Route("api/[controller]")]
@@ -16,23 +16,23 @@ namespace task2.WebApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Common.Dtos.BookDto>> Get([FromQuery] string opt)
+        public ActionResult<IEnumerable<BookDto>> Get([FromQuery] string opt = "Title")
         {
             return Ok(_bookService.Get(opt));
         }
 
         [HttpGet]
         [Route("recommended")]
-        public ActionResult<IEnumerable<Common.Dtos.BookDto>> GetRecommended([FromQuery] string? genre)
+        public ActionResult<IEnumerable<BookDto>> GetRecommended([FromQuery] string? genre)
         {
             return Ok(_bookService.GetBooksWithHighRatings(genre));
         }
 
         [HttpGet]
         [Route("{id}")]
-        public ActionResult<IEnumerable<Common.Dtos.BookDto>> GetBookDetails(int id)
+        public async Task<ActionResult<IEnumerable<BookWithReviewsDto>>> GetBookDetails(int id)
         {
-            return Ok(_bookService.GetDetails(id));
+            return Ok(await _bookService.GetDetails(id));
         }
 
         [HttpDelete]
@@ -50,7 +50,7 @@ namespace task2.WebApi.Controllers
 
         [HttpPost]
         [Route("save")]
-        public async Task<ActionResult<int>> PostBook(Common.Dtos.NewBookDto dto)
+        public async Task<ActionResult<int>> PostBook(NewBookDto dto)
         {
             return Ok(await _bookService.Save(dto));
         } 

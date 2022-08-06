@@ -23,7 +23,6 @@ public class ErrorHandlerMiddleware
         }
         catch (Exception ex)
         {
-
             _logger.LogError(ex.Message);
             var response = context.Response;
             response.StatusCode = ex switch

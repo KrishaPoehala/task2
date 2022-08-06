@@ -8,9 +8,9 @@ public record BookWithReviewsDto
     public string Cover { get; set; }
     public string Content { get; set; }
     public decimal Rating { get; set; }
+    public string Genre { get; set; }
     public ICollection<ReviewDto> Reviews { get; set; }
     public BookWithReviewsDto()
     {
-
     }
 }
