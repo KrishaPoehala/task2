@@ -19,5 +19,12 @@ namespace task2.WebApi.Controllers
         {
             return Ok(_bookService.Get(opt));
         }
+
+        [HttpGet]
+        [Route("recommended")]
+        public ActionResult<IEnumerable<Common.Dtos.BookDto>> GetRecommended([FromQuery] string? genre)
+        {
+            return Ok(_bookService.GetBooksWithHighRatings(genre));
+        }
     }
 }

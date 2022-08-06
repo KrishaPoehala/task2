@@ -37,11 +37,14 @@ public class BookService : Abstration.ServiceBase, Abstration.IBookService
         };
     }
 
-    public IEnumerable<BookDto> GetBooksWithHighRatings() => _context
+    public IEnumerable<BookDto> GetBooksWithHighRatings(string? genre) => _context
          .Books
          .Where(x => x.Reviews.Count >= 10)
+         .Where(x => genre == null || x.Genre == genre)
+         .AsEnumerable()
          .OrderByDescending(x => x.Ratings)
          .Take(10)
+         .OrderBy(x => x.Ratings)
          .AsEnumerable()
          .Select(x => _mapper.Map<BookDto>(x));
 
