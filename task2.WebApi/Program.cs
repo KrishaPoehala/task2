@@ -14,6 +14,7 @@ builder.Services.AddDbContext<BooksContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("BooksDb")));
 builder.Services.AddAutoMapper(typeof(task2.Common.Profiles.MappingProfile));
 builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddSingleton<IConfiguration>(p => builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

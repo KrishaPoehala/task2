@@ -45,7 +45,6 @@ public class BookService : Abstration.ServiceBase, Abstration.IBookService
          .OrderByDescending(x => x.Ratings)
          .Take(10)
          .OrderBy(x => x.Ratings)
-         .AsEnumerable()
          .Select(x => _mapper.Map<BookDto>(x));
 
     public async Task<BookWithReviewsDto> GetDetails(int id)
