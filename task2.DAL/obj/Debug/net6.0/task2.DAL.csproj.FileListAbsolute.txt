@@ -1,0 +1,14 @@
+C:\Users\huawei\source\repos\task2\task2.DAL\bin\Debug\net6.0\task2.DAL.deps.json
+C:\Users\huawei\source\repos\task2\task2.DAL\bin\Debug\net6.0\task2.DAL.runtimeconfig.json
+C:\Users\huawei\source\repos\task2\task2.DAL\bin\Debug\net6.0\task2.DAL.dll
+C:\Users\huawei\source\repos\task2\task2.DAL\bin\Debug\net6.0\ref\task2.DAL.dll
+C:\Users\huawei\source\repos\task2\task2.DAL\bin\Debug\net6.0\task2.DAL.pdb
+C:\Users\huawei\source\repos\task2\task2.DAL\obj\Debug\net6.0\task2.DAL.csproj.AssemblyReference.cache
+C:\Users\huawei\source\repos\task2\task2.DAL\obj\Debug\net6.0\task2.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\huawei\source\repos\task2\task2.DAL\obj\Debug\net6.0\task2.DAL.AssemblyInfoInputs.cache
+C:\Users\huawei\source\repos\task2\task2.DAL\obj\Debug\net6.0\task2.DAL.AssemblyInfo.cs
+C:\Users\huawei\source\repos\task2\task2.DAL\obj\Debug\net6.0\task2.DAL.csproj.CoreCompileInputs.cache
+C:\Users\huawei\source\repos\task2\task2.DAL\obj\Debug\net6.0\task2.DAL.dll
+C:\Users\huawei\source\repos\task2\task2.DAL\obj\Debug\net6.0\ref\task2.DAL.dll
+C:\Users\huawei\source\repos\task2\task2.DAL\obj\Debug\net6.0\task2.DAL.pdb
+C:\Users\huawei\source\repos\task2\task2.DAL\obj\Debug\net6.0\task2.DAL.genruntimeconfig.cache

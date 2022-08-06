@@ -1,0 +1,836 @@
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace task2.DAL.Migrations
+{
+    public partial class Initial : Migration
+    {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "Books",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Cover = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Author = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Books", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Ratings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BookId = table.Column<int>(type: "int", nullable: false),
+                    Score = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ratings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ratings_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reviews",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Reviewer = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BookId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Books",
+                columns: new[] { "Id", "Author", "Content", "Cover", "Genre", "Title" },
+                values: new object[,]
+                {
+                    { 2, null, "http://lorempixel.com/640/480/food", "Rerum aut rerum et quod soluta neque aut et et dolorem pariatur magni sed accusantium.", "Et et aliquid est nostrum.", "Numquam corporis magni ipsum veritatis." },
+                    { 3, null, "http://lorempixel.com/640/480/city", "Nam distinctio beatae nisi minima aperiam quidem reiciendis voluptas praesentium quae perspiciatis culpa id aut.", "Ipsum magnam accusamus rerum quos.", "Nemo dolores impedit quo fuga." },
+                    { 4, null, "http://lorempixel.com/640/480/nightlife", "Quam placeat consequatur culpa sed rem non exercitationem nisi nemo omnis amet ipsa quis neque.", "Et error error eligendi quidem.", "Ducimus consequatur labore maiores dolor." },
+                    { 5, null, "http://lorempixel.com/640/480/business", "Omnis quis consequatur molestiae dolor aut animi fuga optio cumque atque dolorum harum qui amet.", "Illo delectus fugit soluta nihil.", "Dicta soluta non fugit magnam." },
+                    { 6, null, "http://lorempixel.com/640/480/abstract", "Rem autem sint qui assumenda assumenda id aliquam minima mollitia et fugit natus totam dignissimos.", "Placeat quasi aut vero alias.", "Esse cupiditate nostrum et magnam." },
+                    { 7, null, "http://lorempixel.com/640/480/transport", "Sit quod nulla sint ex inventore natus dolor eaque illum esse laboriosam pariatur omnis dolorem.", "Quidem quia et doloremque dolor.", "Vitae nemo error officia et." },
+                    { 8, null, "http://lorempixel.com/640/480/cats", "Perferendis odio sit iure veniam nostrum fuga autem a autem rerum consectetur non vero aut.", "Vel ducimus in eum blanditiis.", "Facere odit qui cumque rem." },
+                    { 9, null, "http://lorempixel.com/640/480/fashion", "Iusto dignissimos in aut modi modi porro magnam soluta odit veniam velit animi libero eum.", "Vel optio consequatur velit veniam.", "Esse beatae et neque ut." },
+                    { 10, null, "http://lorempixel.com/640/480/animals", "Ipsum iusto autem molestias facilis dicta pariatur tenetur sit dolores rerum ab nisi laboriosam maxime.", "Odit eius esse qui molestias.", "Aliquam nam et aperiam voluptatem." },
+                    { 11, null, "http://lorempixel.com/640/480/food", "Mollitia molestiae aut consequatur velit est ducimus ea accusamus aut accusamus et beatae dolor esse.", "Beatae et error tempora blanditiis.", "Tenetur voluptas in ea ipsa." },
+                    { 12, null, "http://lorempixel.com/640/480/business", "Sit aspernatur animi consectetur sapiente error rerum quo ratione quia sit natus impedit mollitia necessitatibus.", "Voluptatem est mollitia a cumque.", "Libero saepe sunt perferendis dolores." },
+                    { 13, null, "http://lorempixel.com/640/480/fashion", "Quia molestias velit voluptas laborum officia ut ab molestiae laboriosam vel ad ipsa nisi dolor.", "Harum qui earum delectus ducimus.", "Omnis consequuntur accusamus eveniet recusandae." },
+                    { 14, null, "http://lorempixel.com/640/480/transport", "Magni et repudiandae illo et facere itaque aliquam eum non nulla cum unde repellat et.", "Ratione maxime voluptatem nihil dolor.", "Itaque corporis dicta saepe porro." },
+                    { 15, null, "http://lorempixel.com/640/480/city", "Nesciunt corrupti voluptas est labore rem ut et qui sapiente in maxime dolor aliquam iusto.", "Eos omnis mollitia excepturi at.", "Tempore fugit voluptas cumque suscipit." },
+                    { 16, null, "http://lorempixel.com/640/480/people", "Porro voluptates blanditiis odio culpa deleniti aut quia et recusandae architecto mollitia eum qui sit.", "Alias dolorem ipsam reprehenderit et.", "Labore voluptate sit omnis est." },
+                    { 17, null, "http://lorempixel.com/640/480/nightlife", "Debitis maiores animi veritatis et ipsam totam et sit et quo dignissimos ipsa omnis nihil.", "Id sed quod perspiciatis sed.", "Consequatur nobis itaque dolor ad." },
+                    { 18, null, "http://lorempixel.com/640/480/nature", "Qui commodi sed voluptas odio numquam omnis magni perferendis rem veritatis omnis et blanditiis consequatur.", "Quos voluptate error ipsam dicta.", "Facere sunt ea est quasi." },
+                    { 19, null, "http://lorempixel.com/640/480/technics", "Adipisci omnis minus error dolores voluptatibus quo facilis possimus est eaque aspernatur delectus beatae libero.", "Incidunt necessitatibus quia aliquid eos.", "Magnam consectetur quia qui dicta." },
+                    { 20, null, "http://lorempixel.com/640/480/city", "Aut non assumenda id voluptatibus ut beatae saepe repellat officia sint est nostrum numquam eos.", "Sint quia voluptatem nulla ex.", "Et occaecati voluptas facilis libero." },
+                    { 21, null, "http://lorempixel.com/640/480/fashion", "Dolores voluptates et eius optio sit ipsa veritatis id quas nemo qui reprehenderit corporis repellendus.", "Omnis iure voluptate tenetur dignissimos.", "Odit in ex tempore sint." },
+                    { 22, null, "http://lorempixel.com/640/480/animals", "Sunt perspiciatis facere qui ipsam eligendi labore accusamus voluptas numquam et nulla aut qui eos.", "Magnam ipsum aut ut delectus.", "Nemo perspiciatis esse sed qui." },
+                    { 23, null, "http://lorempixel.com/640/480/sports", "Qui atque et nam est est cupiditate facilis rerum aut et omnis laboriosam corporis exercitationem.", "Et sunt quia reiciendis eos.", "Fugiat rem nemo et sunt." },
+                    { 24, null, "http://lorempixel.com/640/480/nightlife", "Nemo non quos enim repellendus accusamus ut ab odio dolorem sed sed sequi quas dolores.", "Sit ut illo eum quidem.", "Eos dignissimos soluta voluptatum dolor." },
+                    { 25, null, "http://lorempixel.com/640/480/food", "Explicabo eveniet repudiandae sit ratione consequuntur qui enim fuga consequatur ex fugiat aut aspernatur accusamus.", "Sunt quo et quod earum.", "Ad voluptas odio debitis perferendis." },
+                    { 26, null, "http://lorempixel.com/640/480/people", "Id consequatur et aut veritatis voluptatum consequatur similique cupiditate expedita doloremque deleniti facere qui nihil.", "Facere sit et minima explicabo.", "Voluptatem illum voluptatem sint illum." }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Ratings",
+                columns: new[] { "Id", "BookId", "Score" },
+                values: new object[,]
+                {
+                    { 2, 20, 6 },
+                    { 3, 12, 6 },
+                    { 4, 18, 4 },
+                    { 5, 13, 4 },
+                    { 6, 13, 5 },
+                    { 7, 22, 4 },
+                    { 8, 3, 6 },
+                    { 9, 15, 5 },
+                    { 10, 22, 1 },
+                    { 11, 11, 5 },
+                    { 12, 10, 6 },
+                    { 13, 6, 3 },
+                    { 14, 25, 5 },
+                    { 15, 20, 6 },
+                    { 16, 25, 2 },
+                    { 17, 20, 3 },
+                    { 18, 8, 6 },
+                    { 19, 17, 4 },
+                    { 20, 24, 2 },
+                    { 21, 18, 4 },
+                    { 22, 3, 3 },
+                    { 23, 12, 3 },
+                    { 24, 6, 2 },
+                    { 25, 15, 1 },
+                    { 26, 9, 6 },
+                    { 27, 12, 5 },
+                    { 28, 7, 5 },
+                    { 29, 19, 3 },
+                    { 30, 7, 2 },
+                    { 31, 9, 4 },
+                    { 32, 14, 2 },
+                    { 33, 5, 1 },
+                    { 34, 9, 3 },
+                    { 35, 10, 6 },
+                    { 36, 4, 6 },
+                    { 37, 2, 1 },
+                    { 38, 10, 6 },
+                    { 39, 5, 5 },
+                    { 40, 14, 1 },
+                    { 41, 11, 1 },
+                    { 42, 18, 6 },
+                    { 43, 20, 4 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Ratings",
+                columns: new[] { "Id", "BookId", "Score" },
+                values: new object[,]
+                {
+                    { 44, 3, 5 },
+                    { 45, 20, 2 },
+                    { 46, 16, 1 },
+                    { 47, 4, 6 },
+                    { 48, 4, 6 },
+                    { 49, 17, 6 },
+                    { 50, 19, 2 },
+                    { 51, 20, 1 },
+                    { 52, 15, 1 },
+                    { 53, 22, 4 },
+                    { 54, 19, 1 },
+                    { 55, 16, 6 },
+                    { 56, 3, 3 },
+                    { 57, 19, 6 },
+                    { 58, 20, 1 },
+                    { 59, 20, 3 },
+                    { 60, 11, 1 },
+                    { 61, 4, 2 },
+                    { 62, 13, 5 },
+                    { 63, 3, 5 },
+                    { 64, 13, 2 },
+                    { 65, 20, 1 },
+                    { 66, 18, 2 },
+                    { 67, 21, 6 },
+                    { 68, 15, 3 },
+                    { 69, 4, 2 },
+                    { 70, 8, 2 },
+                    { 71, 7, 6 },
+                    { 72, 5, 5 },
+                    { 73, 8, 6 },
+                    { 74, 16, 1 },
+                    { 75, 7, 6 },
+                    { 76, 3, 1 },
+                    { 77, 3, 3 },
+                    { 78, 23, 1 },
+                    { 79, 15, 3 },
+                    { 80, 13, 2 },
+                    { 81, 14, 3 },
+                    { 82, 16, 1 },
+                    { 83, 23, 3 },
+                    { 84, 16, 6 },
+                    { 85, 20, 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Ratings",
+                columns: new[] { "Id", "BookId", "Score" },
+                values: new object[,]
+                {
+                    { 86, 13, 2 },
+                    { 87, 18, 4 },
+                    { 88, 24, 1 },
+                    { 89, 9, 2 },
+                    { 90, 7, 5 },
+                    { 91, 13, 4 },
+                    { 92, 23, 4 },
+                    { 93, 14, 5 },
+                    { 94, 20, 4 },
+                    { 95, 15, 1 },
+                    { 96, 26, 2 },
+                    { 97, 24, 3 },
+                    { 98, 25, 3 },
+                    { 99, 8, 1 },
+                    { 100, 17, 3 },
+                    { 101, 20, 4 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reviews",
+                columns: new[] { "Id", "BookId", "Message", "Reviewer" },
+                values: new object[,]
+                {
+                    { 2, 9, "Dolores et aut a dolorum alias quaerat maxime beatae officiis.", "Shaniya" },
+                    { 3, 23, "Deserunt quas aliquam et et optio qui facilis sequi blanditiis.", "Candida" },
+                    { 4, 24, "Incidunt exercitationem incidunt est consequatur ut alias hic eveniet non.", "Jadyn" },
+                    { 5, 4, "Exercitationem cupiditate et ut necessitatibus vel nemo sed accusantium ipsam.", "Vickie" },
+                    { 6, 16, "Blanditiis aut sint id reprehenderit suscipit quod quae perferendis consequatur.", "Clinton" },
+                    { 7, 2, "Nemo accusantium id quas a nesciunt corporis est sed itaque.", "Tyson" },
+                    { 8, 18, "Dolorem eligendi atque harum reiciendis autem expedita eos sit quae.", "Corene" },
+                    { 9, 11, "Laborum voluptatum sed sed saepe iste ipsa hic magnam quaerat.", "Derick" },
+                    { 10, 18, "Architecto et eaque veritatis qui non expedita veritatis temporibus quis.", "Urban" },
+                    { 11, 22, "Dolorem quasi expedita sint architecto blanditiis consectetur facere et consequatur.", "Maymie" },
+                    { 12, 7, "Aut quia et asperiores qui sit temporibus minus quia assumenda.", "Cletus" },
+                    { 13, 25, "Molestias mollitia eveniet aliquam adipisci ipsam suscipit aut enim non.", "Reid" },
+                    { 14, 3, "Voluptatem quae quis sit nam quasi totam in adipisci quibusdam.", "Concepcion" },
+                    { 15, 15, "Omnis dolores non repudiandae nihil ex consequatur atque animi eligendi.", "Belle" },
+                    { 16, 9, "Quibusdam dolorem voluptas vel possimus dolorum voluptatem tenetur quia sit.", "Beulah" },
+                    { 17, 2, "Qui modi sed harum eum nihil ut facere animi necessitatibus.", "Kristoffer" },
+                    { 18, 6, "Debitis suscipit consequuntur eos quaerat dolorum cum eius ab vel.", "Tiana" },
+                    { 19, 7, "Et aut ducimus fuga perspiciatis magni ullam neque suscipit enim.", "Mercedes" },
+                    { 20, 11, "Et rerum enim debitis ea laborum sed consequatur exercitationem quis.", "Colleen" },
+                    { 21, 14, "Est aliquam et illum neque et quia magni quia voluptas.", "Morgan" },
+                    { 22, 17, "Non numquam ea laboriosam aliquam qui nostrum ut odit porro.", "Emanuel" },
+                    { 23, 24, "Officia ut iusto hic nostrum sint a explicabo nulla corporis.", "Quentin" },
+                    { 24, 2, "Qui sunt et et mollitia voluptatibus aliquid amet qui laboriosam.", "Thad" },
+                    { 25, 21, "Veritatis cumque quos voluptatum non molestiae voluptatem non vero laudantium.", "Liana" },
+                    { 26, 13, "Id mollitia consequatur velit animi sunt consequatur molestias sit quo.", "Winfield" },
+                    { 27, 15, "Aut consequatur culpa eaque saepe sunt reprehenderit nihil eum dolores.", "Jean" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reviews",
+                columns: new[] { "Id", "BookId", "Message", "Reviewer" },
+                values: new object[,]
+                {
+                    { 28, 24, "Excepturi illum quibusdam consequatur quidem assumenda qui nostrum voluptas eos.", "Daphney" },
+                    { 29, 13, "Unde sint eius nobis occaecati et accusamus ut quam exercitationem.", "Kattie" },
+                    { 30, 19, "Hic iste voluptates molestias ad porro harum quibusdam in rerum.", "Maryam" },
+                    { 31, 13, "Eveniet totam commodi architecto minima qui voluptatem dolorem dolorum labore.", "Marco" },
+                    { 32, 3, "Maiores nesciunt velit eveniet quis mollitia dolores et rerum iste.", "Ruthe" },
+                    { 33, 23, "Voluptatem eos et velit laborum enim suscipit dolores ab harum.", "Michelle" },
+                    { 34, 18, "Natus ut illum aut consequatur qui aut sed qui corporis.", "Rae" },
+                    { 35, 17, "Odit et soluta tenetur consequatur ad dolorem delectus voluptatum nostrum.", "Eldon" },
+                    { 36, 18, "Molestiae quo repudiandae non est cupiditate sed animi temporibus et.", "Kayden" },
+                    { 37, 12, "Et quae aperiam eaque similique commodi quasi ut laborum hic.", "Ila" },
+                    { 38, 17, "Nulla odit error quia eum veniam consequuntur et omnis quidem.", "Scottie" },
+                    { 39, 9, "Ut cumque impedit quidem excepturi amet repellat ipsum placeat dolorem.", "Eli" },
+                    { 40, 26, "Architecto impedit ea nobis deleniti sit ipsa autem exercitationem ut.", "Leland" },
+                    { 41, 18, "Voluptatum quisquam sed quae ut velit vel voluptas voluptas aperiam.", "Tremaine" },
+                    { 42, 18, "Qui error veritatis eveniet possimus porro asperiores eos repudiandae et.", "Beulah" },
+                    { 43, 8, "Rerum fuga aperiam eos qui odio quam alias modi sit.", "Mckenna" },
+                    { 44, 12, "Omnis nesciunt sed animi veniam odit aliquid autem dolores autem.", "Tyreek" },
+                    { 45, 13, "Neque provident adipisci ut et aperiam aut perferendis cumque delectus.", "Dino" },
+                    { 46, 14, "Quaerat voluptatem et eveniet occaecati dolores nam error non reiciendis.", "Dane" },
+                    { 47, 19, "Ut delectus quaerat maiores voluptatem accusantium exercitationem ut ut illum.", "Jordy" },
+                    { 48, 21, "Alias ex numquam quia corrupti ut blanditiis nemo corporis omnis.", "Margot" },
+                    { 49, 11, "Voluptates sint odit sunt mollitia beatae doloremque dolorem quis et.", "Emiliano" },
+                    { 50, 8, "Dolore et aut voluptas quis dolores velit temporibus asperiores inventore.", "Henry" },
+                    { 51, 12, "Aut officia hic eum omnis culpa sequi perspiciatis expedita ea.", "Brandon" },
+                    { 52, 6, "Hic vitae praesentium non iusto est accusantium dolorem id vero.", "Monroe" },
+                    { 53, 22, "Quis est atque nostrum est ratione dolores ut labore dicta.", "Germaine" },
+                    { 54, 18, "Totam rerum velit asperiores doloremque ab nemo autem officiis cum.", "Omari" },
+                    { 55, 14, "Qui debitis eveniet exercitationem aspernatur dolore explicabo alias iure est.", "Alexa" },
+                    { 56, 2, "Occaecati earum molestiae aut minus dolor molestiae corporis totam hic.", "Brandt" },
+                    { 57, 20, "Repellat voluptatem quas impedit at sit commodi dolorum sint dolor.", "Edmond" },
+                    { 58, 6, "Dolorem quam excepturi ipsa est omnis et voluptas libero est.", "Martin" },
+                    { 59, 16, "Consequatur facilis quia neque earum eos provident totam quasi aut.", "Constantin" },
+                    { 60, 24, "Et architecto et esse iste earum consequatur aspernatur occaecati aliquam.", "Rosa" },
+                    { 61, 7, "Consequatur hic provident exercitationem reiciendis explicabo vel in magni consequatur.", "Norris" },
+                    { 62, 3, "Non repellat tenetur earum eum nobis odio quis in dolorum.", "Tobin" },
+                    { 63, 9, "Doloremque numquam modi praesentium ut consequatur quasi voluptatem assumenda mollitia.", "Gregorio" },
+                    { 64, 8, "Vitae fuga ullam numquam consequatur libero animi repellendus sunt sint.", "Charley" },
+                    { 65, 3, "Ullam facere magnam voluptas ut velit nostrum amet consectetur ratione.", "Lorenza" },
+                    { 66, 19, "Expedita perspiciatis omnis voluptas quidem est vel omnis adipisci labore.", "Davon" },
+                    { 67, 25, "Incidunt non maiores nesciunt ut enim sunt optio quos tenetur.", "Austyn" },
+                    { 68, 13, "Dolore asperiores aut occaecati in voluptatem velit perspiciatis in molestiae.", "Joaquin" },
+                    { 69, 20, "Temporibus quasi et optio in nobis id laudantium est facilis.", "Carol" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reviews",
+                columns: new[] { "Id", "BookId", "Message", "Reviewer" },
+                values: new object[,]
+                {
+                    { 70, 18, "Inventore culpa deserunt debitis id est voluptas alias est fugit.", "Jeremy" },
+                    { 71, 14, "Rerum dolor nemo necessitatibus accusamus repellat iure sequi numquam non.", "Elisa" },
+                    { 72, 22, "Dolorem eos error sit repudiandae ea accusantium illum voluptas suscipit.", "Patsy" },
+                    { 73, 26, "Eum placeat aspernatur sint aut qui incidunt optio aut et.", "Eda" },
+                    { 74, 3, "Maiores neque sunt perspiciatis nesciunt eos deserunt error eligendi cumque.", "Chandler" },
+                    { 75, 22, "Quis pariatur quidem et et facilis numquam blanditiis non laboriosam.", "Emmie" },
+                    { 76, 4, "Et repudiandae aut neque libero aut non eveniet in quidem.", "Alayna" },
+                    { 77, 23, "Sapiente sapiente ratione ad illum veritatis esse aut nam iste.", "Monroe" },
+                    { 78, 19, "Qui ipsum quaerat harum quas magnam minima et soluta suscipit.", "Miracle" },
+                    { 79, 15, "Nobis consequatur deleniti veniam voluptatum natus qui praesentium nihil consequatur.", "Bradly" },
+                    { 80, 12, "Est aliquid sint eum est non ipsam voluptas ab omnis.", "Amy" },
+                    { 81, 24, "Aut impedit autem et nihil esse dolores repellendus sunt voluptatem.", "Karen" },
+                    { 82, 10, "Vel voluptas laudantium suscipit eum ut eos consequatur repellendus eveniet.", "Philip" },
+                    { 83, 22, "Quae laborum quidem dicta reiciendis quis alias in optio nisi.", "Jeffrey" },
+                    { 84, 7, "Autem in facere aliquid sint non at reiciendis et enim.", "Ernestine" },
+                    { 85, 15, "Soluta vel odio aspernatur voluptatem dolor voluptate ad facere nihil.", "Josue" },
+                    { 86, 18, "Hic molestiae minus ut eveniet illum necessitatibus placeat quia velit.", "Leland" },
+                    { 87, 12, "Quo quia porro et non magni sint ad facere quam.", "Rhea" },
+                    { 88, 9, "Ut quam similique quia provident quos neque inventore voluptatum architecto.", "Alexandro" },
+                    { 89, 3, "Neque non sint occaecati corrupti explicabo quia eos sit quis.", "Osborne" },
+                    { 90, 6, "Molestias dolorem molestias amet non molestias explicabo aspernatur accusamus quia.", "Elmo" },
+                    { 91, 10, "Voluptatem explicabo sed deleniti sit neque et quod quis sit.", "Molly" },
+                    { 92, 4, "Quos magni eveniet corrupti est est voluptates expedita dolor quia.", "Carley" },
+                    { 93, 25, "Sed saepe doloribus ullam tenetur molestiae quasi animi ut placeat.", "Myrtle" },
+                    { 94, 6, "Omnis quia amet quod laborum enim a eaque minima quam.", "Pink" },
+                    { 95, 14, "Sed mollitia eaque laboriosam nobis temporibus sunt velit cum est.", "Skye" },
+                    { 96, 8, "Est minus quia sint quas voluptate sunt sed repudiandae nemo.", "Bria" },
+                    { 97, 6, "Nesciunt non sequi reiciendis illum atque magnam et quaerat iure.", "Bridgette" },
+                    { 98, 20, "Amet numquam eum odit vitae commodi placeat doloremque aliquam voluptatem.", "Abner" },
+                    { 99, 23, "Aut numquam eum aliquam voluptas et ex doloribus sapiente hic.", "Rodrigo" },
+                    { 100, 17, "Earum tempore ipsam voluptate praesentium non eum velit voluptas beatae.", "Jimmy" },
+                    { 101, 7, "Quaerat beatae et eius enim eum aut officia ut eveniet.", "Nya" },
+                    { 102, 2, "Blanditiis quo ut cum sit enim at eius assumenda aperiam.", "Ronny" },
+                    { 103, 15, "Itaque excepturi laboriosam nihil officiis voluptates ut eius cum enim.", "Marta" },
+                    { 104, 23, "Quia culpa dolorum voluptas totam sed tenetur nulla non velit.", "Zoie" },
+                    { 105, 2, "Sint sit atque vel voluptas excepturi itaque deleniti fuga ut.", "Jackie" },
+                    { 106, 17, "Autem voluptate commodi dolor dolorem enim id debitis veniam optio.", "Reagan" },
+                    { 107, 3, "Est et aut doloremque facere expedita deleniti dolore nobis non.", "Westley" },
+                    { 108, 4, "Provident nesciunt quod et illo et quis ipsam ipsum molestias.", "Laverne" },
+                    { 109, 6, "Deleniti expedita ut quo molestias distinctio aut saepe ut illo.", "Newton" },
+                    { 110, 20, "Ut nihil aspernatur explicabo harum est quia pariatur est voluptatem.", "Colleen" },
+                    { 111, 7, "Et consectetur sint ex nostrum nesciunt unde beatae totam ad.", "Claudie" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reviews",
+                columns: new[] { "Id", "BookId", "Message", "Reviewer" },
+                values: new object[,]
+                {
+                    { 112, 7, "Et quos id dignissimos non quo odit voluptates accusantium in.", "Greta" },
+                    { 113, 5, "Vel ullam odit accusamus a fuga ab suscipit quisquam atque.", "Kasey" },
+                    { 114, 7, "Praesentium praesentium quasi pariatur vitae dicta natus ipsa facilis omnis.", "Aurore" },
+                    { 115, 6, "Unde inventore aut repellendus error sed consectetur quia vel perferendis.", "Cristina" },
+                    { 116, 26, "Et hic occaecati provident tempore molestiae earum et soluta nam.", "Otilia" },
+                    { 117, 16, "Cupiditate iusto voluptas praesentium aut est aut aperiam error suscipit.", "Ibrahim" },
+                    { 118, 15, "Rerum aspernatur rerum enim aliquid distinctio incidunt laudantium aliquam et.", "Novella" },
+                    { 119, 20, "Qui numquam error laborum dignissimos quis repellat neque vel pariatur.", "Davion" },
+                    { 120, 5, "Temporibus assumenda magni eum eaque doloribus sit eum architecto quia.", "Lindsey" },
+                    { 121, 19, "Qui qui explicabo veritatis similique quidem minus et laudantium ut.", "Travon" },
+                    { 122, 13, "Nulla et ut et est qui recusandae perferendis non odio.", "Dedrick" },
+                    { 123, 26, "Dolor totam tempora optio assumenda iste sunt sed voluptatem incidunt.", "Delilah" },
+                    { 124, 20, "Consequatur modi earum autem et maiores quisquam nulla nulla corporis.", "Antonietta" },
+                    { 125, 17, "Vero perspiciatis vitae fugiat adipisci velit voluptatem odio blanditiis dolores.", "Gabe" },
+                    { 126, 21, "Animi iure debitis quia eos velit aspernatur accusamus in ullam.", "Reba" },
+                    { 127, 14, "Voluptates rerum magnam maxime recusandae molestiae itaque repellendus quo possimus.", "Sandrine" },
+                    { 128, 26, "Perferendis minus ad ipsum vel recusandae veritatis delectus omnis eum.", "Michele" },
+                    { 129, 7, "Qui aliquam tempora perferendis vel sapiente dolorum voluptatum saepe debitis.", "Tara" },
+                    { 130, 9, "Et laboriosam repellat explicabo enim dignissimos dolores a fuga blanditiis.", "Stanley" },
+                    { 131, 10, "Dolorum sint a molestiae fuga eaque praesentium autem vel asperiores.", "Javier" },
+                    { 132, 15, "Quo dolores facilis aut dolores numquam molestiae sed qui voluptatem.", "Jarred" },
+                    { 133, 7, "Eaque quia tempora iste in veritatis enim perferendis sit odio.", "Herta" },
+                    { 134, 3, "Exercitationem ut facere sunt et dolorem est temporibus tempora itaque.", "Antone" },
+                    { 135, 6, "Dolores eveniet ipsam temporibus quia voluptates labore mollitia culpa commodi.", "Elisabeth" },
+                    { 136, 7, "Autem impedit tempora doloribus sed quis aliquam expedita est doloribus.", "Gerry" },
+                    { 137, 4, "Hic voluptate et quia ducimus laboriosam est necessitatibus repellendus delectus.", "Scotty" },
+                    { 138, 11, "Non aliquam earum dolores officia fugiat optio illum totam qui.", "Samir" },
+                    { 139, 19, "Cum qui recusandae nostrum molestiae tempora tempora ducimus iste temporibus.", "Howell" },
+                    { 140, 8, "Placeat provident ea ipsam dolor iste maxime doloremque quae quas.", "Haylie" },
+                    { 141, 21, "Molestiae quisquam sint necessitatibus autem dolores eos ad aut consequatur.", "Skyla" },
+                    { 142, 19, "Eum et eos dolor aut dignissimos aliquam nostrum doloremque sunt.", "Gudrun" },
+                    { 143, 13, "Quo dignissimos aut amet optio porro et perspiciatis molestiae error.", "Cindy" },
+                    { 144, 14, "Quis nihil eligendi eaque illo illo vitae provident quo qui.", "Nedra" },
+                    { 145, 7, "Omnis porro doloribus dolorem ab veniam modi rem saepe rerum.", "Monty" },
+                    { 146, 7, "Id et voluptas praesentium atque ratione voluptatum et asperiores qui.", "Levi" },
+                    { 147, 10, "Nulla recusandae incidunt porro ipsum quaerat minus adipisci architecto quos.", "Rowena" },
+                    { 148, 24, "Tempore est dicta nam veniam facilis cumque repudiandae est tenetur.", "Gretchen" },
+                    { 149, 13, "Consequatur amet officia dolore ab animi et autem id deserunt.", "Ella" },
+                    { 150, 13, "Dolores impedit voluptas quas rerum autem dolorum nam est est.", "Vesta" },
+                    { 151, 13, "Mollitia consequuntur repellat nesciunt libero harum dignissimos beatae esse porro.", "Ephraim" },
+                    { 152, 20, "Mollitia aut atque voluptas alias illo nostrum officia officia consequatur.", "Cathy" },
+                    { 153, 23, "Occaecati sed ullam nesciunt tempora veniam qui vel hic impedit.", "Amani" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reviews",
+                columns: new[] { "Id", "BookId", "Message", "Reviewer" },
+                values: new object[,]
+                {
+                    { 154, 13, "Omnis laudantium maiores veniam voluptatibus autem eveniet sit dolor voluptate.", "Laurence" },
+                    { 155, 18, "Est vel a reiciendis ipsum maxime et saepe consequatur accusamus.", "Trudie" },
+                    { 156, 16, "Eos et quia molestias beatae quaerat omnis nostrum voluptates quae.", "Maryjane" },
+                    { 157, 11, "Aperiam ipsum pariatur natus perspiciatis amet dolor necessitatibus error aspernatur.", "Charley" },
+                    { 158, 20, "Velit totam quia mollitia libero totam amet maiores impedit sit.", "Adolf" },
+                    { 159, 5, "Maiores perspiciatis porro maiores nobis ea sit a veritatis maxime.", "Giovanna" },
+                    { 160, 5, "Dolorem praesentium placeat et labore ipsam quo at dolorem aut.", "Marcel" },
+                    { 161, 15, "Voluptatibus voluptate et veniam quidem dolorem tenetur quas sed recusandae.", "Arlie" },
+                    { 162, 26, "Corporis ut ad labore impedit voluptatem velit aut quo praesentium.", "Davion" },
+                    { 163, 14, "Ut adipisci et voluptatibus cumque incidunt maxime omnis velit voluptatum.", "Lorna" },
+                    { 164, 21, "Laborum facere dolores dolorem debitis eius aut mollitia sunt ipsa.", "Ethyl" },
+                    { 165, 25, "Eum consequuntur qui qui autem eum laboriosam sapiente quae consequuntur.", "Urban" },
+                    { 166, 23, "Cupiditate assumenda voluptatum molestias ducimus vitae laudantium minus hic dolor.", "Kirstin" },
+                    { 167, 15, "Blanditiis labore veritatis eius illo aut rerum magnam aut qui.", "Carmel" },
+                    { 168, 25, "Aut nulla consequuntur sed est atque aspernatur est sapiente in.", "Carlo" },
+                    { 169, 22, "Tempora ratione ut perspiciatis incidunt in qui itaque neque expedita.", "Alexandria" },
+                    { 170, 19, "Voluptas non odio sapiente doloremque laudantium aut neque a incidunt.", "Augustus" },
+                    { 171, 9, "Accusamus quidem ut cum sit eveniet exercitationem porro quo ut.", "Tressa" },
+                    { 172, 26, "Ut qui mollitia et voluptatem saepe blanditiis et enim qui.", "Milton" },
+                    { 173, 16, "Consequatur dolores error sint consequatur est aperiam tenetur animi cum.", "Johnathon" },
+                    { 174, 4, "Quo aliquid illo expedita eos autem illum et temporibus et.", "Cielo" },
+                    { 175, 4, "Molestiae sed necessitatibus voluptates dolorem necessitatibus quisquam sequi sint ipsum.", "Rose" },
+                    { 176, 18, "Sit consectetur ut aspernatur ab quia officia recusandae pariatur fugit.", "Maye" },
+                    { 177, 11, "Doloribus quae placeat voluptas debitis repudiandae quia voluptatem cum est.", "Verlie" },
+                    { 178, 20, "Sint et itaque voluptatem sapiente laudantium rerum dolorem non quia.", "Marjorie" },
+                    { 179, 16, "Assumenda incidunt consequatur qui architecto aut et dignissimos et distinctio.", "Kristoffer" },
+                    { 180, 7, "Consequatur at quis odio corporis odio atque hic molestiae rerum.", "Kareem" },
+                    { 181, 5, "Nobis recusandae possimus enim et repudiandae dolore harum perspiciatis aut.", "Tremaine" },
+                    { 182, 8, "Dolorem impedit provident qui rerum quas eum nostrum eaque consectetur.", "Autumn" },
+                    { 183, 7, "Voluptatem quas rerum mollitia quaerat numquam consequatur esse earum molestiae.", "Tomasa" },
+                    { 184, 5, "Odio omnis dolorum et voluptate soluta aut hic aut quo.", "Ila" },
+                    { 185, 11, "Porro velit aut eaque quidem unde aut aut sint sit.", "Kristian" },
+                    { 186, 14, "Rerum perferendis in omnis beatae est non ad vitae magnam.", "Norval" },
+                    { 187, 24, "Deserunt perferendis molestiae recusandae quia quas facilis amet ullam velit.", "Janie" },
+                    { 188, 22, "Et earum et ea veniam natus laboriosam quidem est laboriosam.", "Lysanne" },
+                    { 189, 8, "Incidunt non aperiam non error animi esse rem sapiente quia.", "Joyce" },
+                    { 190, 4, "Laudantium dolores iusto assumenda dolorum harum exercitationem corrupti alias alias.", "Torey" },
+                    { 191, 13, "Consequatur recusandae molestiae fugiat eum vitae earum quia sapiente consequatur.", "Rae" },
+                    { 192, 16, "Quos error amet id dolorum in temporibus corrupti eum laboriosam.", "Cooper" },
+                    { 193, 11, "Voluptatem distinctio culpa voluptas dolorem praesentium nihil sequi qui nobis.", "Lilla" },
+                    { 194, 24, "Molestias praesentium aperiam voluptas in eos veritatis vel sunt provident.", "Freeda" },
+                    { 195, 4, "Temporibus quos consectetur sunt qui nihil repudiandae commodi quis dignissimos.", "Sterling" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reviews",
+                columns: new[] { "Id", "BookId", "Message", "Reviewer" },
+                values: new object[,]
+                {
+                    { 196, 3, "Molestiae similique non ut consequuntur fugiat accusantium quia repellat sed.", "Stanton" },
+                    { 197, 20, "Et numquam quia molestiae sed alias labore nesciunt quasi eveniet.", "Genesis" },
+                    { 198, 10, "Consequatur occaecati distinctio nam exercitationem consequatur id blanditiis rem tenetur.", "Chase" },
+                    { 199, 10, "Placeat repudiandae iusto necessitatibus quo nisi in qui dolorem voluptatem.", "Serenity" },
+                    { 200, 25, "Doloremque omnis voluptatum molestiae consequatur accusantium voluptate excepturi et nam.", "Odell" },
+                    { 201, 11, "Optio laboriosam illo corrupti voluptates quisquam aspernatur quia consequatur illum.", "Vito" },
+                    { 202, 9, "Vel dignissimos facere qui qui eos enim modi qui mollitia.", "Leatha" },
+                    { 203, 15, "Quisquam doloremque aut delectus consequatur recusandae asperiores dolores in consequuntur.", "Gail" },
+                    { 204, 10, "Occaecati totam aperiam velit consequuntur facilis distinctio quaerat id et.", "Crystel" },
+                    { 205, 23, "Blanditiis doloribus minus nisi unde eaque rerum maxime ut atque.", "Harry" },
+                    { 206, 3, "Et molestiae voluptatum cupiditate laudantium ut laboriosam ut tempore qui.", "Jed" },
+                    { 207, 16, "Fuga blanditiis rerum voluptas dicta cumque aspernatur et dolorem praesentium.", "Alessia" },
+                    { 208, 20, "Iste et incidunt tempore ea ipsum et eum sed in.", "Nathaniel" },
+                    { 209, 14, "Sit iure earum error et quae doloremque sunt eveniet voluptates.", "Maribel" },
+                    { 210, 2, "Sunt omnis iure optio quidem voluptatibus necessitatibus officia aut dolore.", "Maverick" },
+                    { 211, 6, "Eligendi vel quasi sit ducimus eveniet quos qui nihil assumenda.", "Darlene" },
+                    { 212, 25, "Laborum esse assumenda odit nam dolores dignissimos nihil et distinctio.", "Otho" },
+                    { 213, 2, "Dolore est est perspiciatis praesentium fugit voluptas ipsa magnam voluptas.", "Breanne" },
+                    { 214, 22, "Autem omnis aliquid totam in et quisquam ea ea provident.", "Jorge" },
+                    { 215, 7, "Qui dolorum eum amet ullam in dolores eaque velit et.", "Angie" },
+                    { 216, 24, "Eos veniam fuga est praesentium nobis delectus rerum voluptates consequatur.", "Sammy" },
+                    { 217, 19, "Molestias ut debitis totam omnis occaecati atque ea in maiores.", "Coby" },
+                    { 218, 19, "Laudantium natus consequatur facilis placeat harum veniam architecto labore nemo.", "Louisa" },
+                    { 219, 2, "Molestias cupiditate esse fuga numquam qui omnis corporis similique a.", "Kayley" },
+                    { 220, 20, "Et nemo eligendi iure veniam occaecati eos a unde nemo.", "Arnaldo" },
+                    { 221, 2, "Fugiat omnis et qui molestias id ullam distinctio debitis accusantium.", "Nova" },
+                    { 222, 26, "Dolor aliquid placeat omnis magnam ipsa similique iure nemo sequi.", "Joanie" },
+                    { 223, 26, "Repellat eum fuga sed rerum officiis et velit non recusandae.", "Korbin" },
+                    { 224, 2, "Dolor quam voluptas quaerat quia dolores ipsam laudantium possimus tempora.", "Selena" },
+                    { 225, 17, "Vel itaque quis omnis minima vitae provident architecto qui ullam.", "Ora" },
+                    { 226, 2, "Omnis eos aut aut inventore dicta odio voluptatibus nobis exercitationem.", "Destiny" },
+                    { 227, 26, "Dolor quos dignissimos ad tempore nobis sapiente magni voluptatem possimus.", "Santa" },
+                    { 228, 17, "Quod rerum qui consequatur sit labore quo possimus nobis nihil.", "Pedro" },
+                    { 229, 10, "Saepe dolor facilis dolores ut et et sed velit illum.", "Americo" },
+                    { 230, 10, "Dolor omnis numquam modi id ea suscipit quo eos unde.", "Felix" },
+                    { 231, 17, "Ipsa et qui quia qui nihil ut blanditiis est animi.", "Clemmie" },
+                    { 232, 9, "Porro amet voluptatem iste nihil autem voluptatem sed id aliquam.", "Elena" },
+                    { 233, 13, "Aspernatur quisquam nostrum labore distinctio quisquam eius voluptatum sit qui.", "Esperanza" },
+                    { 234, 4, "Consequatur ratione velit necessitatibus quasi omnis in vel voluptatem libero.", "Chase" },
+                    { 235, 25, "Minima quidem labore quo laboriosam rerum libero illo in quisquam.", "Glennie" },
+                    { 236, 20, "Quia aut velit dolores voluptas fuga expedita dolorem enim saepe.", "Kallie" },
+                    { 237, 22, "Eveniet possimus similique quam quae omnis nobis quia labore a.", "Arnoldo" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reviews",
+                columns: new[] { "Id", "BookId", "Message", "Reviewer" },
+                values: new object[,]
+                {
+                    { 238, 3, "Deleniti hic necessitatibus sed doloribus minima et quia id et.", "Alexie" },
+                    { 239, 22, "Reiciendis omnis architecto exercitationem voluptas placeat quia ipsa repellat quia.", "George" },
+                    { 240, 26, "Autem cupiditate qui dolore quasi quisquam ipsum qui architecto aut.", "Jeff" },
+                    { 241, 13, "Repellat voluptates provident dicta eos dolor minus quam praesentium vel.", "Meagan" },
+                    { 242, 4, "Voluptatem cumque soluta laborum dignissimos quis accusamus eum velit doloribus.", "Alberta" },
+                    { 243, 20, "Quas inventore optio nemo soluta nisi et nihil molestias quisquam.", "Hermina" },
+                    { 244, 17, "Eum esse et perferendis facilis corporis eos est illo id.", "Fiona" },
+                    { 245, 25, "Illum voluptatibus laborum corporis voluptatem voluptate sint ducimus aut quidem.", "Gustave" },
+                    { 246, 11, "Ea sit temporibus ipsum ea omnis recusandae a quo veritatis.", "Melissa" },
+                    { 247, 4, "Qui consectetur accusantium eveniet natus qui eum inventore nisi nulla.", "Leif" },
+                    { 248, 24, "Fugit eaque accusantium et praesentium veniam rem odio sed ut.", "Eliane" },
+                    { 249, 2, "Ex eum necessitatibus quos asperiores deserunt ipsam dolores suscipit quas.", "Corene" },
+                    { 250, 5, "Odit at in ipsam rem excepturi et natus consequuntur in.", "Domingo" },
+                    { 251, 18, "Fuga nisi veritatis qui facilis iste neque id rerum quis.", "Easter" },
+                    { 252, 3, "Et beatae quas id est quam dolor et veniam dolores.", "Larue" },
+                    { 253, 10, "Voluptatum reprehenderit magni beatae ad nulla nihil ea repellat eum.", "Michele" },
+                    { 254, 18, "Dolores dignissimos ipsum voluptatibus dolores explicabo cumque ipsum qui iure.", "Tierra" },
+                    { 255, 13, "Maiores quas consequatur exercitationem voluptate distinctio vel sequi odio eum.", "Nickolas" },
+                    { 256, 10, "Ullam doloremque repellat ullam laboriosam eum aut labore nulla voluptas.", "Sylvester" },
+                    { 257, 3, "Delectus id deserunt quis eos ullam et enim optio magnam.", "Frank" },
+                    { 258, 3, "Quas et quisquam enim a nesciunt et suscipit aut illo.", "Lucienne" },
+                    { 259, 26, "Aut praesentium et laboriosam dignissimos omnis sequi similique sunt commodi.", "Alfredo" },
+                    { 260, 25, "Perspiciatis porro quas mollitia molestiae et eius ipsam aperiam a.", "Michale" },
+                    { 261, 13, "Dolorum beatae et et non nihil animi inventore accusamus cumque.", "Sebastian" },
+                    { 262, 3, "Neque repudiandae dolores labore pariatur rem nam quos itaque nesciunt.", "Edwin" },
+                    { 263, 19, "Natus exercitationem nihil dicta dignissimos dolorum quae voluptatem iusto assumenda.", "Katlynn" },
+                    { 264, 3, "Aut et rerum molestiae velit perspiciatis similique quae quis quibusdam.", "Vesta" },
+                    { 265, 8, "Iure ut neque est nihil alias sequi mollitia sed omnis.", "Iva" },
+                    { 266, 14, "Nam sit aut et in quis repellendus voluptatem rem deleniti.", "Daisy" },
+                    { 267, 16, "Sequi corrupti vel magnam asperiores omnis quae maxime repudiandae nam.", "Yesenia" },
+                    { 268, 15, "Aliquid earum aspernatur et non sunt consequatur aperiam unde voluptatem.", "Walton" },
+                    { 269, 13, "Debitis doloremque qui omnis quibusdam consequatur perspiciatis eius est recusandae.", "Nicola" },
+                    { 270, 6, "Aut quibusdam praesentium saepe ea vel ut assumenda quisquam consequatur.", "Jordane" },
+                    { 271, 25, "Delectus ut vel dolor atque est sint voluptatem ipsa optio.", "Alejandra" },
+                    { 272, 24, "Autem ex non velit et natus aliquam quis molestiae eligendi.", "Priscilla" },
+                    { 273, 22, "Magni quo odio et ut quia ut accusamus similique eveniet.", "Brandy" },
+                    { 274, 14, "Velit quia nemo corrupti eum doloremque expedita ut iure consectetur.", "Bill" },
+                    { 275, 18, "Et id sed placeat voluptatem qui animi et doloremque enim.", "Lottie" },
+                    { 276, 12, "Aut et labore aut ipsam nam voluptatibus molestias aperiam iste.", "Kailey" },
+                    { 277, 19, "Illo excepturi hic culpa ducimus expedita numquam nobis accusantium qui.", "Ross" },
+                    { 278, 22, "Voluptatem repudiandae voluptatem facere nam facere repellendus ipsam deserunt pariatur.", "Angelo" },
+                    { 279, 20, "Nemo ut iusto quae earum neque ab velit qui omnis.", "Tiana" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reviews",
+                columns: new[] { "Id", "BookId", "Message", "Reviewer" },
+                values: new object[,]
+                {
+                    { 280, 4, "Et rerum eos exercitationem et omnis est et minus accusantium.", "Kellie" },
+                    { 281, 12, "Alias cumque maiores recusandae recusandae ullam rerum itaque voluptas expedita.", "Wilfredo" },
+                    { 282, 10, "Aut possimus soluta voluptas sapiente sint autem harum dolores repellendus.", "Garry" },
+                    { 283, 5, "Quia est architecto enim necessitatibus atque laborum ut eaque doloremque.", "Grant" },
+                    { 284, 20, "Vitae quam repudiandae quae natus harum cumque minima et earum.", "Lucinda" },
+                    { 285, 13, "Optio mollitia magni est eveniet unde dignissimos consequatur vitae aut.", "Enos" },
+                    { 286, 9, "Consequatur explicabo mollitia maxime corrupti fugit aliquid quod nisi mollitia.", "Dan" },
+                    { 287, 4, "Dolore dignissimos molestias sequi architecto nam sit sit tenetur sequi.", "Claudie" },
+                    { 288, 3, "Quod sapiente error et magnam minus voluptas cumque eum quae.", "Alena" },
+                    { 289, 22, "Delectus mollitia fugit ipsa modi alias mollitia perspiciatis sit laboriosam.", "Wilma" },
+                    { 290, 18, "Et explicabo est autem occaecati sunt est odio dolores eveniet.", "Burdette" },
+                    { 291, 24, "Repudiandae dolor voluptas consequatur libero eos soluta quidem in repellat.", "Jaquelin" },
+                    { 292, 19, "Perspiciatis qui ut ipsum totam eum nulla sint non sequi.", "Mariane" },
+                    { 293, 22, "Totam sint nemo doloremque neque et aut quaerat eius doloremque.", "Kelli" },
+                    { 294, 17, "Ad doloremque dolorum et quia sit repudiandae accusamus nihil ratione.", "Camryn" },
+                    { 295, 2, "Exercitationem qui id iusto reprehenderit ut quo qui voluptate enim.", "Laney" },
+                    { 296, 19, "Ut quisquam rerum enim vel quidem mollitia ducimus recusandae perspiciatis.", "Andres" },
+                    { 297, 20, "Maxime quia sint consectetur veritatis aliquam velit vel voluptates laudantium.", "Tremaine" },
+                    { 298, 5, "Quam error non ipsa sed porro doloribus maxime eos fugiat.", "Manuela" },
+                    { 299, 6, "Eos sit enim ullam labore quibusdam ea voluptas repellendus ad.", "Heloise" },
+                    { 300, 6, "Impedit aut fugiat quae pariatur accusamus dignissimos rerum ut voluptatem.", "Pietro" },
+                    { 301, 21, "Quis aut odio enim incidunt facere ea voluptate eveniet laboriosam.", "Sheridan" },
+                    { 302, 19, "Perferendis quo eligendi explicabo autem quo exercitationem culpa natus voluptatem.", "Addison" },
+                    { 303, 23, "Dignissimos voluptatem doloribus nulla officia nobis perferendis ipsa nam animi.", "Dave" },
+                    { 304, 15, "Nobis et rem dolores saepe praesentium deserunt ducimus et ad.", "Shanna" },
+                    { 305, 21, "Expedita sed dolor eius at veniam voluptatem animi alias quia.", "Marjorie" },
+                    { 306, 20, "Occaecati et molestias nobis est consectetur inventore sit unde enim.", "Eldon" },
+                    { 307, 22, "Iste perferendis dolorem quae et totam qui sed expedita voluptatem.", "Abigayle" },
+                    { 308, 24, "Sint debitis eum dicta velit odit repellendus quas voluptatem impedit.", "Marcelle" },
+                    { 309, 23, "Veniam maiores aut accusantium dicta est aut quaerat incidunt odit.", "Michaela" },
+                    { 310, 5, "Vitae quia praesentium non voluptates odio ut ut quia ut.", "Eugene" },
+                    { 311, 25, "Dolorem error rerum recusandae dolorum quasi nihil sit accusantium et.", "Brannon" },
+                    { 312, 25, "Et quaerat tempore dolor provident iste magni numquam perferendis sit.", "Darrel" },
+                    { 313, 8, "Et quaerat provident earum aut autem eum similique dolor consequatur.", "Catalina" },
+                    { 314, 17, "Ipsum sint velit non ea consequatur et quis a deleniti.", "River" },
+                    { 315, 10, "Qui quia necessitatibus sunt esse iure saepe alias possimus eligendi.", "Alessia" },
+                    { 316, 7, "Accusantium maxime est nostrum fuga fuga ullam libero culpa sed.", "Sheila" },
+                    { 317, 7, "Vitae quasi dignissimos dolorum ut id modi sit recusandae sed.", "Buddy" },
+                    { 318, 15, "Repellendus quas et ut id sed exercitationem omnis odit dolore.", "Maximilian" },
+                    { 319, 12, "Explicabo incidunt et ipsa occaecati impedit modi at cumque et.", "Roy" },
+                    { 320, 15, "Iste perferendis animi quia et doloremque sed quasi et eum.", "Hilton" },
+                    { 321, 15, "Aliquid est sed totam qui neque eius et fuga non.", "Ashton" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reviews",
+                columns: new[] { "Id", "BookId", "Message", "Reviewer" },
+                values: new object[,]
+                {
+                    { 322, 11, "Qui eveniet aut consectetur excepturi recusandae dicta cumque quos iure.", "Orval" },
+                    { 323, 17, "Laudantium quam quis quia consequatur quod deleniti error illo voluptatem.", "Daniela" },
+                    { 324, 20, "Sunt nam aliquid vel qui nemo hic sed adipisci doloribus.", "Kirk" },
+                    { 325, 23, "Ea atque deleniti velit amet qui nisi itaque repudiandae nihil.", "Estefania" },
+                    { 326, 26, "Eligendi nostrum nemo perspiciatis non aliquam culpa repellat ad non.", "Arvid" },
+                    { 327, 10, "Ex in repellat non voluptatibus asperiores quis omnis ex et.", "Timmothy" },
+                    { 328, 16, "Voluptates hic vitae molestiae voluptas adipisci repellendus labore eveniet modi.", "Burnice" },
+                    { 329, 6, "Est fuga omnis nam quos nam odit id assumenda aperiam.", "Tobin" },
+                    { 330, 23, "Quaerat fuga facere aspernatur minus ex dolorum reiciendis provident totam.", "Rosemarie" },
+                    { 331, 19, "Voluptatem in et est occaecati aliquam sunt et exercitationem placeat.", "Consuelo" },
+                    { 332, 14, "Quia nesciunt voluptatibus numquam sequi ipsa illum ab quibusdam tenetur.", "Maegan" },
+                    { 333, 25, "Itaque consequatur delectus nihil voluptas nesciunt laboriosam ea qui et.", "Columbus" },
+                    { 334, 2, "Neque ipsa a ratione ratione dolorum similique est enim officiis.", "Solon" },
+                    { 335, 9, "Aliquid voluptatem nemo quas aspernatur corrupti necessitatibus itaque expedita deleniti.", "Danny" },
+                    { 336, 24, "Sed possimus in architecto unde enim ut cumque non similique.", "Erica" },
+                    { 337, 21, "Iste cum dolorem maxime ut facere vel aut ratione velit.", "Olaf" },
+                    { 338, 7, "Officiis magnam doloremque ducimus aut fuga amet dolorem tempore dignissimos.", "Arturo" },
+                    { 339, 4, "Iste ut omnis neque voluptas corporis reiciendis error voluptate quia.", "Rhett" },
+                    { 340, 17, "Fugiat blanditiis pariatur ut beatae eius aspernatur dolores eaque voluptates.", "Helmer" },
+                    { 341, 7, "Qui eveniet et fugit rerum alias consequatur earum voluptatibus vero.", "Milford" },
+                    { 342, 5, "Voluptates magnam molestiae aut iste quasi magnam itaque quia voluptates.", "Earline" },
+                    { 343, 8, "Facilis est quos quis adipisci quidem eius quo fugiat dolorem.", "Bernita" },
+                    { 344, 4, "Voluptate et aut et ut dolores ipsa repellendus eius libero.", "Hilma" },
+                    { 345, 21, "Non dolorem nihil sapiente soluta harum ipsum labore quia nihil.", "Rhett" },
+                    { 346, 12, "Laudantium animi quis cum rem architecto suscipit tempora sit temporibus.", "Glenna" },
+                    { 347, 20, "Ea eveniet exercitationem odit molestiae aut et voluptas dolorem quaerat.", "Clovis" },
+                    { 348, 13, "Vel architecto doloribus inventore aperiam vel sint voluptatem quas eos.", "Amari" },
+                    { 349, 19, "Ut rerum magni illo delectus ullam nesciunt hic quisquam doloribus.", "Gabe" },
+                    { 350, 14, "Quia tempora aut odio ducimus esse laudantium beatae aut voluptatum.", "Ariel" },
+                    { 351, 5, "Ab id corporis quidem possimus ipsum rerum sint aut quidem.", "Khalil" },
+                    { 352, 7, "Expedita in ut eius natus nostrum et ipsum non qui.", "Baby" },
+                    { 353, 22, "Rem sequi optio placeat et accusamus voluptas odit cumque corporis.", "Salvatore" },
+                    { 354, 6, "Ut velit necessitatibus id quis consequatur doloribus nisi libero molestiae.", "Jessie" },
+                    { 355, 19, "Quis ullam iusto ex saepe quae voluptas earum adipisci sit.", "Dana" },
+                    { 356, 16, "Tempora consequatur veniam error quas accusantium officiis molestiae libero blanditiis.", "Jermaine" },
+                    { 357, 8, "Vel facilis reiciendis ex sit eos natus impedit provident vel.", "Alexandre" },
+                    { 358, 3, "Mollitia eos quo ab nobis quia voluptatem quo autem commodi.", "Tamia" },
+                    { 359, 19, "Voluptas sequi cum nam molestias odit maiores dolores illo aut.", "Verona" },
+                    { 360, 20, "Ut pariatur aut corporis et laudantium debitis magnam explicabo fugit.", "Cameron" },
+                    { 361, 6, "Facere nisi voluptatum qui sit animi facilis asperiores dolores corrupti.", "Newton" },
+                    { 362, 6, "A adipisci praesentium est nihil vel eius quod numquam molestiae.", "Andre" },
+                    { 363, 16, "Illum blanditiis rerum amet autem explicabo necessitatibus nemo dolorem accusamus.", "Freddy" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reviews",
+                columns: new[] { "Id", "BookId", "Message", "Reviewer" },
+                values: new object[,]
+                {
+                    { 364, 20, "Possimus est nam dolore fugit magni earum ut eligendi quidem.", "Einar" },
+                    { 365, 10, "Voluptatibus totam dolorem et tempore quos quia doloribus est laborum.", "Mohammad" },
+                    { 366, 24, "Non non vitae consectetur dignissimos similique et aut ullam eos.", "Shanel" },
+                    { 367, 18, "Reprehenderit voluptates qui quidem enim facilis amet quo asperiores neque.", "Estevan" },
+                    { 368, 9, "Dolores qui dolor est hic ea alias et velit quia.", "Tyrell" },
+                    { 369, 18, "Quasi et voluptates consectetur ut placeat ducimus nemo omnis non.", "Boris" },
+                    { 370, 10, "Voluptas pariatur doloremque dolores temporibus id aut ea omnis quo.", "Caroline" },
+                    { 371, 4, "Nihil suscipit voluptatibus est reiciendis corrupti eos dolores est commodi.", "Kailee" },
+                    { 372, 7, "Est officiis magni dolor ad consequuntur qui nisi ut vel.", "Arnold" },
+                    { 373, 19, "Qui qui voluptate impedit earum incidunt est dolores facilis nihil.", "Jerel" },
+                    { 374, 9, "In optio accusamus assumenda autem aut maiores qui cupiditate consectetur.", "Madelynn" },
+                    { 375, 18, "Est deserunt est enim natus porro et fuga consequatur omnis.", "Elaina" },
+                    { 376, 18, "Iure est animi occaecati dignissimos est dicta eum qui perferendis.", "Valentin" },
+                    { 377, 26, "Non aut aspernatur natus tempora fugit aut facere quis et.", "Savanah" },
+                    { 378, 21, "Ad quisquam nesciunt quibusdam non vero qui amet vitae quibusdam.", "Michelle" },
+                    { 379, 8, "Eos sit totam aut nam neque occaecati non possimus asperiores.", "Jeremie" },
+                    { 380, 10, "Officia deleniti ducimus inventore voluptatem sequi fugiat ea laboriosam et.", "Theo" },
+                    { 381, 3, "Placeat ut sed facere et aut dolorum illo velit est.", "Nicolas" },
+                    { 382, 10, "Eligendi veniam modi et dolorem ab dolore explicabo nulla ut.", "Tess" },
+                    { 383, 10, "Qui amet minus dolores est recusandae hic similique voluptatem vero.", "Kendrick" },
+                    { 384, 4, "Temporibus blanditiis eos sit itaque vel laboriosam consequuntur sed voluptate.", "Era" },
+                    { 385, 6, "Ad culpa illo quia sunt veritatis et optio non similique.", "Marian" },
+                    { 386, 19, "Omnis molestiae officiis cupiditate voluptatem id itaque commodi consectetur ut.", "Autumn" },
+                    { 387, 13, "Totam quidem qui natus debitis doloribus dolorum quia atque commodi.", "Shana" },
+                    { 388, 14, "Nam mollitia nihil doloremque fugit ipsum quia et libero ipsum.", "David" },
+                    { 389, 24, "Atque ut aut omnis vel perferendis ut rem vel qui.", "Cecilia" },
+                    { 390, 15, "Eos nam qui nam eum molestiae voluptatum iusto sed sequi.", "Sarina" },
+                    { 391, 12, "Est et nulla blanditiis facere fugit omnis ut quis quia.", "Ike" },
+                    { 392, 20, "Omnis animi voluptatem et voluptatibus rerum aut repellat quas et.", "Rickie" },
+                    { 393, 19, "Ipsum modi rerum repudiandae sint sed iusto at fugit modi.", "Freddie" },
+                    { 394, 17, "Repudiandae sit voluptatem soluta ad et ea ut incidunt possimus.", "Carli" },
+                    { 395, 8, "Voluptates doloremque aut dolores est eaque voluptas sint quam beatae.", "Alyson" },
+                    { 396, 11, "Cupiditate enim et possimus corrupti modi laborum animi voluptatum hic.", "Jefferey" },
+                    { 397, 23, "Voluptas repellendus ipsum sit ducimus iste officia expedita ducimus et.", "Beatrice" },
+                    { 398, 11, "Culpa dolorum adipisci voluptatem voluptatem sequi accusamus in illo nemo.", "Dulce" },
+                    { 399, 3, "Explicabo unde voluptatibus sed earum corrupti tempora suscipit harum expedita.", "Virgie" },
+                    { 400, 8, "Ut magni eligendi aut voluptates maiores molestiae et nemo praesentium.", "Demetris" },
+                    { 401, 6, "Aperiam iure neque placeat aut iste id veritatis ducimus incidunt.", "Vallie" },
+                    { 402, 7, "Consequatur dolorum occaecati asperiores facere a et facilis quo ducimus.", "Frederic" },
+                    { 403, 23, "Rerum quia harum rerum nesciunt voluptate mollitia delectus quaerat reprehenderit.", "Crystel" },
+                    { 404, 13, "Incidunt vitae optio expedita harum nisi quos molestias ut dolor.", "Kraig" },
+                    { 405, 18, "Iusto qui aut a veritatis officiis et qui impedit debitis.", "Grayce" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reviews",
+                columns: new[] { "Id", "BookId", "Message", "Reviewer" },
+                values: new object[,]
+                {
+                    { 406, 24, "Facilis vel vel quam dignissimos voluptates tempora omnis saepe porro.", "Deanna" },
+                    { 407, 19, "Eos sequi nobis saepe modi dolores veritatis voluptas aliquam inventore.", "Brain" },
+                    { 408, 22, "Consequatur qui ut fugit maiores accusantium cum molestiae omnis eius.", "Clarabelle" },
+                    { 409, 20, "Sunt aliquid fugit iure non dolorem incidunt dignissimos voluptatem dignissimos.", "Iva" },
+                    { 410, 14, "Nisi quae explicabo odit consequatur adipisci minima consequatur voluptatem quasi.", "Trent" },
+                    { 411, 18, "Et et est quisquam voluptatibus deserunt quam et voluptas odio.", "Erik" },
+                    { 412, 18, "Officiis quae non qui voluptas et enim qui nostrum unde.", "Itzel" },
+                    { 413, 4, "Earum delectus dicta ex est architecto harum quis aliquam nobis.", "Roy" },
+                    { 414, 12, "Recusandae laudantium voluptatem amet distinctio labore voluptas quo molestiae vel.", "Laurel" },
+                    { 415, 10, "Et accusantium laboriosam omnis reiciendis fugiat eum corrupti ut illum.", "Darrin" },
+                    { 416, 13, "Placeat non esse alias aliquam sint est doloribus hic aut.", "Jadyn" },
+                    { 417, 20, "Nam est quasi cupiditate facilis rerum nostrum eum sit sunt.", "Elyssa" },
+                    { 418, 18, "Mollitia qui officia voluptatem temporibus voluptatibus magnam odio veritatis dignissimos.", "Eula" },
+                    { 419, 3, "Iste omnis et repellat ea temporibus exercitationem ab saepe quisquam.", "Ayla" },
+                    { 420, 2, "Quis iure consequuntur nesciunt iusto fugiat quasi esse consequatur laudantium.", "Colby" },
+                    { 421, 18, "Est molestias eos pariatur quisquam eos facere aut dicta voluptatum.", "Serena" },
+                    { 422, 16, "Nam id nobis dicta maiores illo ut provident veritatis quibusdam.", "Evalyn" },
+                    { 423, 25, "Inventore quos aut corrupti quo et eos fugiat quisquam qui.", "Charley" },
+                    { 424, 19, "Dolorem nam quasi fugit tempore similique sit non sint neque.", "Collin" },
+                    { 425, 13, "Nemo est fugiat repellendus veniam non tenetur voluptatem ut eaque.", "Dustin" },
+                    { 426, 18, "Eligendi molestiae quis rerum molestias aut in quas reiciendis quia.", "Kailee" },
+                    { 427, 23, "Qui expedita ratione harum ut nulla laboriosam praesentium nihil reiciendis.", "Brown" },
+                    { 428, 11, "Minus eum dolores aut rerum nesciunt pariatur deleniti sit quia.", "Grayson" },
+                    { 429, 22, "Aut itaque aut aperiam aperiam et neque repellendus tempore maxime.", "Molly" },
+                    { 430, 2, "Quia non amet quia aspernatur aperiam cum praesentium sunt nam.", "Elroy" },
+                    { 431, 3, "Aut dignissimos aliquam nostrum atque consequatur minus est nihil aut.", "Princess" },
+                    { 432, 24, "Quaerat ipsum amet eos quas et ratione et rerum impedit.", "Eugene" },
+                    { 433, 10, "Nulla consequuntur voluptates optio quia ab et et maiores nemo.", "Tessie" },
+                    { 434, 12, "Quae vitae aut quis ut quia et non quaerat recusandae.", "Kallie" },
+                    { 435, 25, "Dolorem non molestiae optio quia autem aliquam id voluptatum impedit.", "Kim" },
+                    { 436, 9, "Quis tempore amet optio voluptatem et laborum est unde ea.", "Manuel" },
+                    { 437, 10, "Aut et quis quibusdam maiores quae animi repudiandae iusto voluptas.", "Cullen" },
+                    { 438, 19, "Nulla quidem quia et et qui temporibus temporibus dicta autem.", "Mackenzie" },
+                    { 439, 15, "In non voluptatibus deserunt porro sed enim id sed expedita.", "Flavio" },
+                    { 440, 3, "Dicta praesentium ipsam fugit quaerat quo perferendis voluptas ad quam.", "Dedrick" },
+                    { 441, 6, "Magnam non deserunt ullam dolor et repellendus iusto exercitationem autem.", "Lloyd" },
+                    { 442, 21, "Et magnam incidunt qui temporibus numquam distinctio rem quis quibusdam.", "Antonia" },
+                    { 443, 19, "Voluptas consectetur tenetur molestiae iusto laborum ullam nemo perspiciatis explicabo.", "Watson" },
+                    { 444, 2, "Magnam numquam voluptatem ea eaque incidunt aut ex et assumenda.", "Aubree" },
+                    { 445, 24, "Molestiae voluptatibus nam enim itaque ut ea nam dolorem autem.", "Beryl" },
+                    { 446, 18, "Cumque velit est voluptatum sed qui earum nisi est nihil.", "Garnet" },
+                    { 447, 21, "Ab molestias eveniet voluptatem omnis cum pariatur nobis architecto ea.", "Weston" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reviews",
+                columns: new[] { "Id", "BookId", "Message", "Reviewer" },
+                values: new object[,]
+                {
+                    { 448, 15, "Ratione ea aut voluptatem tenetur odit modi nihil ipsum voluptatem.", "Kali" },
+                    { 449, 16, "Illo aut occaecati vel velit sit vel ratione rerum est.", "Ahmed" },
+                    { 450, 10, "Unde temporibus rerum beatae velit repellat eos sunt commodi quam.", "Lorenza" },
+                    { 451, 10, "Ut natus eos quia facilis saepe rem quam in veniam.", "Summer" },
+                    { 452, 17, "Deserunt doloremque delectus eius aut eligendi in atque labore numquam.", "Verda" },
+                    { 453, 24, "Repudiandae dignissimos tenetur occaecati dolores tenetur praesentium voluptas nemo odio.", "Annabel" },
+                    { 454, 4, "Reiciendis recusandae aut alias officia tempora voluptatem quo nesciunt animi.", "Armando" },
+                    { 455, 4, "Sit sed rem explicabo voluptas architecto provident unde quam aut.", "Gerry" },
+                    { 456, 15, "Est quia voluptatem ex in quia rerum sapiente ab nihil.", "Jennifer" },
+                    { 457, 2, "Et ut sunt dicta nulla nihil culpa odio omnis non.", "Madison" },
+                    { 458, 12, "Molestias illum et vel voluptas atque qui qui quia voluptas.", "Chaya" },
+                    { 459, 13, "Expedita voluptates ducimus et consequatur voluptatem beatae dolor labore accusantium.", "Demario" },
+                    { 460, 11, "Alias et qui perspiciatis alias similique optio beatae ullam molestiae.", "Judson" },
+                    { 461, 24, "Aut eius tempora voluptatem officia magni ex cupiditate necessitatibus ab.", "Alivia" },
+                    { 462, 9, "Voluptatem sint sint magni adipisci voluptas sit officiis sed placeat.", "Shirley" },
+                    { 463, 12, "Inventore magni eveniet ut consequatur quas ut ipsa qui qui.", "Casimer" },
+                    { 464, 5, "Dolorem quis porro corrupti consequatur velit consequatur ut optio dolor.", "Aubrey" },
+                    { 465, 11, "Incidunt maxime et rerum quaerat fuga harum quia corrupti fuga.", "Keenan" },
+                    { 466, 16, "Aut ullam laboriosam minus tempora aut veniam neque ipsum minima.", "Ashley" },
+                    { 467, 8, "Accusantium illo ipsam ea ut magni aut quisquam rerum sunt.", "Rosetta" },
+                    { 468, 7, "Enim maxime accusamus quos ad ducimus illum itaque perspiciatis ut.", "Otho" },
+                    { 469, 17, "Quis maxime non omnis eius ratione accusamus aliquam hic aliquid.", "Monroe" },
+                    { 470, 22, "Est voluptas rerum nobis ullam deleniti architecto et et et.", "Jarret" },
+                    { 471, 6, "Omnis magni nostrum et itaque incidunt architecto est provident tempora.", "Jazmyn" },
+                    { 472, 24, "Perspiciatis ipsam fugit reprehenderit dolores laudantium voluptatem iste nesciunt est.", "Dejon" },
+                    { 473, 20, "Est quod autem pariatur aut non neque laboriosam nemo eveniet.", "Moses" },
+                    { 474, 24, "Veniam eius ea perferendis quibusdam voluptatum corporis quae et sint.", "Margarete" },
+                    { 475, 13, "Id omnis pariatur odio fugit dolor perspiciatis molestiae eum non.", "Rollin" },
+                    { 476, 18, "Dolores aliquam facilis voluptatem totam qui eveniet qui dolorum exercitationem.", "Nellie" },
+                    { 477, 7, "Eum laborum tempora molestiae facere consequatur illum cupiditate maxime nobis.", "Sasha" },
+                    { 478, 25, "Odit fuga nemo omnis aliquid aliquam minima nemo quo magni.", "Nathaniel" },
+                    { 479, 26, "Est quasi non reprehenderit suscipit voluptatum dicta fuga voluptatem ut.", "Amaya" },
+                    { 480, 9, "Ea quis vero dolores qui voluptates aliquam quia adipisci adipisci.", "Everardo" },
+                    { 481, 7, "Perspiciatis molestiae voluptatem deleniti dolorem quasi porro ipsam veniam et.", "Vita" },
+                    { 482, 16, "Dolorem enim atque mollitia omnis facere est porro sunt eius.", "Antoinette" },
+                    { 483, 24, "Vel rerum eum vitae eos vel corrupti aut magnam in.", "Roy" },
+                    { 484, 19, "Inventore explicabo neque dolorum id praesentium beatae aliquid at non.", "Fredy" },
+                    { 485, 2, "Vero tempora cumque quas sunt facere sapiente ut quis expedita.", "Chaz" },
+                    { 486, 5, "Labore et est et dolor omnis est at expedita saepe.", "Dorcas" },
+                    { 487, 13, "Ratione perspiciatis illum hic ab numquam enim ea sint aut.", "Lazaro" },
+                    { 488, 23, "Omnis excepturi nisi iure vitae fuga voluptas corporis labore expedita.", "Sincere" },
+                    { 489, 6, "Vel natus voluptatem voluptatibus voluptatem autem aut culpa est ratione.", "Jude" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reviews",
+                columns: new[] { "Id", "BookId", "Message", "Reviewer" },
+                values: new object[,]
+                {
+                    { 490, 16, "Itaque vel vitae quam ut numquam natus est cumque veniam.", "Mervin" },
+                    { 491, 12, "Aut quia animi ut provident ullam vel vel voluptatibus nihil.", "Isabell" },
+                    { 492, 17, "Accusantium blanditiis voluptas minima quis in ut voluptates maiores molestias.", "Adonis" },
+                    { 493, 4, "Non quasi qui autem vel necessitatibus aspernatur quia labore illo.", "Amanda" },
+                    { 494, 21, "Dicta consectetur mollitia dolores aspernatur illum velit ipsam quam quo.", "Chauncey" },
+                    { 495, 22, "Aliquam neque sapiente et ullam est adipisci ad totam voluptate.", "Reyes" },
+                    { 496, 23, "Magni ea sit dolores omnis eaque debitis quia fuga doloremque.", "Elmira" },
+                    { 497, 11, "Ullam autem eum incidunt sit ex omnis aut et ut.", "Zackary" },
+                    { 498, 15, "Beatae veniam consequuntur et qui provident eos laboriosam beatae dolorem.", "Reynold" },
+                    { 499, 3, "Rerum vero iure nostrum ut non recusandae autem ipsa ab.", "Levi" },
+                    { 500, 4, "Qui ipsam repellat minima hic consectetur quo ipsam earum qui.", "Duane" },
+                    { 501, 26, "Quae eligendi enim et illum ad iusto quia nemo cumque.", "Helga" }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ratings_BookId",
+                table: "Ratings",
+                column: "BookId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviews_BookId",
+                table: "Reviews",
+                column: "BookId");
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "Ratings");
+
+            migrationBuilder.DropTable(
+                name: "Reviews");
+
+            migrationBuilder.DropTable(
+                name: "Books");
+        }
+    }
+}

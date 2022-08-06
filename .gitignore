@@ -48,7 +48,15 @@ Thumbs.db
 *.mov
 *.wmv
 
+<<<<<<< HEAD
 
 obj/ 
 
 .vs/
+=======
+bin/
+.vs/
+obj/
+*.log
+Debug/
+>>>>>>> develop
