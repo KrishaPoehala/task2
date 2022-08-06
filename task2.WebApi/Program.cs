@@ -6,7 +6,7 @@ using task2.BLL.Services.Abstration;
 using task2.BLL.Services.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Logging.AddJsonConsole();
 // Add services to the container.
 builder.Services.AddControllers().AddJsonOptions(option =>
 option.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
@@ -28,7 +28,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseMiddleware<task2.WebApi.Middlewares.ErrorHandlerMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();
