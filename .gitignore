@@ -49,6 +49,7 @@ Thumbs.db
 *.wmv
 
 bin/
-
 .vs/
-
+obj/
+*.log
+Debug/
