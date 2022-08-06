@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "N1LNSQvLpRcltjvGN45ujF9QBjOd44+0LfMCOG+cgc0=",
+  "Source": "task2.WebApi",
+  "BasePath": "_content/task2.WebApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
