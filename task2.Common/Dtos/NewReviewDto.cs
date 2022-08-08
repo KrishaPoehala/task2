@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace task2.Common.Dtos;
 
-namespace task2.Common.Dtos
+public class NewReviewDto
 {
-    internal class NewReviewDto
-    {
-    }
+    public string Message { get; set; }
+    public string Reviewer { get; set; }
 }

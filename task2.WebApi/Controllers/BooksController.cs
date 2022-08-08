@@ -54,5 +54,20 @@ namespace task2.WebApi.Controllers
         {
             return Ok(await _bookService.Save(dto));
         } 
+
+        [HttpPost]
+        [Route("{id}/review")]
+        public async Task<ActionResult<int>> SaveReview(int id,NewReviewDto dto)
+        {
+            return Ok(await _bookService.SaveReview(id,dto));
+        }
+
+        [HttpPost]
+        [Route("{id}/rate")]
+        public async Task<ActionResult> RateABook(int id,NewScoreDto dto)
+        {
+            await _bookService.RateABook(id,dto);
+            return Ok();
+        }
     }
 }

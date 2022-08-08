@@ -3,6 +3,8 @@ using task2.Common.Dtos;
 using task2.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using task2.DAL.Entities;
+using task2.BLL.Services.Abstration;
 
 namespace task2.BLL.Services.Implementation;
 
@@ -64,6 +66,7 @@ public class BookService : Abstration.ServiceBase, Abstration.IBookService
         return _mapper.Map<BookWithReviewsDto>(book);
     }
 
+
     public async Task<int> Save(NewBookDto dto)
     {
         var model = _mapper.Map<DAL.Entities.Book>(dto);
@@ -80,4 +83,33 @@ public class BookService : Abstration.ServiceBase, Abstration.IBookService
         return model.Id;
 
     }
+    public async Task RateABook(int id,NewScoreDto dto)
+    {
+        var book = await _context.Books.FirstOrDefaultAsync(x => x.Id == id);
+        if(book is null)
+        {
+            throw new NullReferenceException(nameof(book));
+        }
+
+        var rating = _mapper.Map<Rating>(dto);
+        await _context.Ratings.AddAsync(rating);
+        book.Ratings.Add(rating);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<int> SaveReview(int id,NewReviewDto dto)
+    {
+        var book = await _context.Books.FirstOrDefaultAsync(x => x.Id == id);
+        if (book is null)
+        {
+            throw new NullReferenceException(nameof(book));
+        }
+
+        var review = _mapper.Map<Review>(dto);
+        await _context.Reviews.AddAsync(review);
+        book.Reviews.Add(review);
+        await _context.SaveChangesAsync();
+        return book.Id;
+    }
+
 }

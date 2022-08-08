@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using task2.BLL.Services.Abstration;
 using task2.BLL.Services.Implementation;
+using task2.WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
@@ -35,6 +36,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors("corsapp");
 
+app.UseMiddleware<LoggingMiddleware>();
 app.UseMiddleware<task2.WebApi.Middlewares.ErrorHandlerMiddleware>();
 app.UseAuthorization();
 

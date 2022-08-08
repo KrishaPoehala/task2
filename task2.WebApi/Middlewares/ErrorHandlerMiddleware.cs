@@ -6,24 +6,20 @@ namespace task2.WebApi.Middlewares;
 public class ErrorHandlerMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly ILoggerFactory _factory;
 
-    public ErrorHandlerMiddleware(RequestDelegate next, ILoggerFactory factory)
+    public ErrorHandlerMiddleware(RequestDelegate next)
     {
         _next = next;
-        _factory = factory;
     }
 
     public async Task Invoke(HttpContext context)
     {
-        var _logger = _factory.CreateLogger<ErrorHandlerMiddleware>();
         try
         {
             await _next(context);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex.Message);
             var response = context.Response;
             response.StatusCode = ex switch
             {
