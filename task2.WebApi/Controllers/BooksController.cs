@@ -57,7 +57,7 @@ namespace task2.WebApi.Controllers
 
         [HttpPost]
         [Route("{id}/review")]
-        public async Task<ActionResult<int>> SaveReview(int id,NewReviewDto dto)
+        public async Task<ActionResult<int>> SaveReview(int id, NewReviewDto dto)
         {
             return Ok(await _bookService.SaveReview(id,dto));
         }
