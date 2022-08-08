@@ -26,13 +26,12 @@ public class BookService : Abstration.ServiceBase, Abstration.IBookService
 
     public IEnumerable<BookDto> Get(string orderPropName)
     {
-        var g = _context.Books
+        var books = _context.Books
             .Include(x => x.Reviews)
             .Include(x => x.Ratings)
             .AsEnumerable()
-            .ToList();
+            .Select(x => _mapper.Map<BookDto>(x));
 
-        var books = g.Select(x => _mapper.Map<BookDto>(x));
         return orderPropName switch
         {
             nameof(BookDto.Author) => books.OrderBy(x => x.Author),
