@@ -34,6 +34,9 @@ GO
 --2. Sort зберігається у двох таблицях одразу, що є порушенням другої нормальної форми.
 --тобто видаливши інформацію про товар інформація про вид товару також буде втрачена.
 --теж саме із кодом товару
+--Sort column is present in two table ate a time. It violates second-normal form.
+--thus, having deleted information about the beer (for exemple)
+--the information about sorts of beer would be lost as well
 
 --3.
 --3.1
