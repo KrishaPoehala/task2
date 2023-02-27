@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 namespace task2.WebApi.Middlewares;
 
@@ -28,7 +29,7 @@ public class ErrorHandlerMiddleware
             };
 
             var result = System.Text.Json.JsonSerializer.Serialize(new {message = ex.Message});
-            await context.Response.WriteAsync(result);
+            await context.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(result));
         }
     }
 }

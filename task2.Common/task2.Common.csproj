@@ -11,7 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\task2.BLL\task2.BLL.csproj" />
     <ProjectReference Include="..\task2.DAL\task2.DAL.csproj" />
+    <ProjectReference Include="..\task2.Infrastructure\task2.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

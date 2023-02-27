@@ -1,7 +1,9 @@
-﻿using task2.Common.Dtos;
+﻿using task2.Infrastructure.Dtos;
 using task2.DAL.Entities;
 using AutoMapper;
-namespace task2.Common.Profiles;
+using task2.BLL.Commands;
+
+namespace task2.Infrastructure.Profiles;
 
 public class MappingProfile : Profile
 {
@@ -21,5 +23,10 @@ public class MappingProfile : Profile
 
         CreateMap<NewBookDto, Book>();
         CreateMap<Review, ReviewDto>();
+        CreateMap<SaveBookCommand, NewBookDto>();
+        CreateMap<SaveReviewCommand, NewReviewDto>();
+        CreateMap<RateABookCommand, NewScoreDto>();
+        CreateMap<NewScoreDto, Rating>();
+        CreateMap<NewReviewDto, Review>();
     }
 }

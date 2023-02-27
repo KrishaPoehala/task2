@@ -14,7 +14,7 @@ public class LoggingMiddleware
     public async Task Invoke(HttpContext context)
     {
         var _logger = _factory.CreateLogger<ErrorHandlerMiddleware>();
-        _logger.LogInformation(context.Request.Method);
+        _logger.LogInformation(message: context.Request.Method);
         foreach (var item in context.Request.Headers)
         {
             _logger.LogInformation(item.Key + " " + item.Value);
