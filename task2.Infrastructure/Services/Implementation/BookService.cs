@@ -35,7 +35,7 @@ public class BookService : ServiceBase, IBookService
         var orderedBooks = orderPropName switch
         {
             nameof(BookDto.Author) => books.OrderBy(x => x.Author),
-            nameof(BookDto.Title) => books.OrderBy(x => x.Title),
+            nameof(BookDto.Title) => books.OrderByDescending(x => x.Title),
             _ => throw new InvalidDataException("Wrong order prop name"),
         };
 
